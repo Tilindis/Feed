@@ -2,7 +2,7 @@ package com.ito.feed.utils.response
 
 import com.squareup.moshi.Json
 
-data class FeedResponse(
+data class FeedsResponse(
     @field:Json(name = "timeline_url")
     val timeline_url: String? = null,
 
