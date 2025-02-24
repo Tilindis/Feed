@@ -58,6 +58,12 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.navigation.compose)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi.convertor)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
