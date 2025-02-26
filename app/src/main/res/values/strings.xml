@@ -8,4 +8,7 @@
     <string name="login_button_skip_text">Skip</string>
     <string name="login_button_crash_text">Crash?</string>
     <string name="login_placeholder_token_text">Paste your token here</string>
+
+    <!--    Feed Card-->
+    <string name="feed_card_button_send_text">Send</string>
 </resources>
