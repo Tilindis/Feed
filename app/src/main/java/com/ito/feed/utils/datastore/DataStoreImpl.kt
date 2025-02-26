@@ -70,6 +70,28 @@ class DataStoreImpl @Inject constructor(@ApplicationContext val context: Context
         }
     }
 
+    override fun getUserNameValue(): Flow<String?> = context.dataStore.data
+        .map { preferences ->
+            preferences[USER_NAME_KEY]
+        }
+
+    override suspend fun saveUserNameValue(status: String) {
+        context.dataStore.edit { preferences ->
+            preferences[USER_NAME_KEY] = status
+        }
+    }
+
+    override fun getUserTokenValue(): Flow<String?> = context.dataStore.data
+        .map { preferences ->
+            preferences[USER_TOKEN_KEY]
+        }
+
+    override suspend fun saveUserTokenValue(status: String) {
+        context.dataStore.edit { preferences ->
+            preferences[USER_TOKEN_KEY] = status
+        }
+    }
+
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(DATASTORE_NAME)
         private val TIMELINE_URL_KEY = stringPreferencesKey("key.timeline_url")
@@ -77,5 +99,7 @@ class DataStoreImpl @Inject constructor(@ApplicationContext val context: Context
         private val SECURITY_ADVISORIES_URL_KEY = stringPreferencesKey("key.security_advisories_url")
         private val REPOSITORY_DISCUSSIONS_URL_KEY = stringPreferencesKey("key.repository_discussions_url")
         private val REPOSITORY_DISCUSSIONS_CATEGORY_URL_KEY = stringPreferencesKey("key.repository_discussions_category_url")
+        private val USER_NAME_KEY = stringPreferencesKey("key.user_name")
+        private val USER_TOKEN_KEY = stringPreferencesKey("key.user_token")
     }
 }
