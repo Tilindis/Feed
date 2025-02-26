@@ -41,7 +41,7 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override fun getTimelineUrlValue(): Flow<String?> {
-        return dataStore.getUserUrlValue()
+        return dataStore.getTimelineUrlValue()
     }
 
     override fun getUserUrlValue(): Flow<String?> {
