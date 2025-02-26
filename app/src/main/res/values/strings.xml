@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Feed</string>
+
+    <!--    Login Screen-->
+    <string name="login_label_username">Username</string>
+    <string name="login_label_token">Token</string>
+    <string name="login_button_login_text">Login</string>
+    <string name="login_button_skip_text">Skip</string>
+    <string name="login_button_crash_text">Crash?</string>
+    <string name="login_placeholder_token_text">Paste your token here</string>
 </resources>
