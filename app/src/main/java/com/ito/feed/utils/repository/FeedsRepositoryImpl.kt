@@ -2,15 +2,17 @@ package com.ito.feed.utils.repository
 
 import android.util.Log
 import com.ito.feed.utils.api.FeedsApi
+import com.ito.feed.utils.api.GitApi
 import com.ito.feed.utils.datastore.DataStore
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FeedsRepositoryImpl @Inject constructor(
     private val api: FeedsApi,
+    private val gitApi: GitApi,
     private val dataStore: DataStore,
 ) : FeedsRepository {
-    override suspend fun requestFeed() {
+    override suspend fun requestFeeds() {
         runCatching {
             api.getFeeds().body()
         }.onSuccess { feedResponse ->
@@ -35,6 +37,16 @@ class FeedsRepositoryImpl @Inject constructor(
                     dataStore.saveRepositoryDiscussionsCategoryUrlValue(it)
                 }
             }
+        }.onFailure {
+            Log.e("FeedRepositoryImpl", "Feed Api: ${it.message}")
+        }
+    }
+
+    override suspend fun requestFeed(path: String) {
+        runCatching {
+            gitApi.getFeed(path).body()
+        }.onSuccess { feedResponse ->
+            Log.e("FeedRepositoryImpl", "Feed Api: $feedResponse")
         }.onFailure {
             Log.e("FeedRepositoryImpl", "Feed Api: ${it.message}")
         }
