@@ -1,6 +1,7 @@
 package com.ito.feed.utils.di
 
 import com.ito.feed.utils.api.FeedsApi
+import com.ito.feed.utils.api.GitApi
 import com.ito.feed.utils.constants.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -40,9 +41,20 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideGitApiService(@Named(Constants.GIT_API_NAME) retrofit: Retrofit): GitApi =
+        retrofit.create(GitApi::class.java)
+
+    @Singleton
+    @Provides
     @Named(Constants.FEEDS_API_NAME)
     fun provideRetrofitFeeds(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
         createRetrofitBuilder(okHttpClient, moshi, Constants.FEEDS_URL)
+
+    @Singleton
+    @Provides
+    @Named(Constants.GIT_API_NAME)
+    fun provideRetrofitGit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
+        createRetrofitBuilder(okHttpClient, moshi, Constants.GIT_URL)
 
     private fun createRetrofitBuilder(
         okHttpClient: OkHttpClient,
