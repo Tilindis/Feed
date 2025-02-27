@@ -10,5 +10,5 @@
     <string name="login_placeholder_token_text">Paste your token here</string>
 
     <!--    Feed Card-->
-    <string name="feed_card_button_send_text">Send</string>
+    <string name="feed_card_button_get_text">Get</string>
 </resources>
