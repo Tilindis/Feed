@@ -25,6 +25,7 @@ fun FeedsContent(
     parameterInputs: List<String>,
     onFieldSelected: (Int) -> Unit,
     onFieldValueChange: (String) -> Unit,
+    onGetClicked: (Int) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,8 +54,10 @@ fun FeedsContent(
                     path = feed.path,
                     pathParameters = feed.parameters,
                     parameterInputs = parameterInputs,
+                    cardId = feed.cardId,
                     onFieldSelected = onFieldSelected,
-                    onFieldValueChange = onFieldValueChange
+                    onFieldValueChange = onFieldValueChange,
+                    onGetClicked = onGetClicked
                 )
             }
         }

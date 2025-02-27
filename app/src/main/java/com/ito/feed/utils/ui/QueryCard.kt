@@ -36,8 +36,10 @@ fun QueryCard(
     path: String,
     pathParameters: List<Parameter>,
     parameterInputs: List<String>,
+    cardId: Int,
     onFieldSelected: (Int) -> Unit,
     onFieldValueChange: (String) -> Unit,
+    onGetClicked: (Int) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -98,12 +100,12 @@ fun QueryCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = {  }, // TODO: Implement send functionality
+                    onClick = { onGetClicked(cardId) },
                     modifier = Modifier
                         .padding(8.dp),
                     shape = RoundedCornerShape(8.dp),
                 ) {
-                    Text(text = stringResource(id = R.string.feed_card_button_send_text))
+                    Text(text = stringResource(id = R.string.feed_card_button_get_text))
                 }
             }
         }
@@ -117,10 +119,12 @@ fun Preview(modifier: Modifier = Modifier) {
     FeedTheme {
         QueryCard(
             path = "https://github.com/{user}",
-            pathParameters = listOf(Parameter("user", 0)),
+            pathParameters = listOf(Parameter("user", 0,0)),
             parameterInputs = listOf(),
             onFieldSelected = { },
             onFieldValueChange = { },
+            onGetClicked = { },
+            cardId = 0
         )
     }
 }

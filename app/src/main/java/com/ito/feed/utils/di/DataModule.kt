@@ -2,6 +2,7 @@ package com.ito.feed.utils.di
 
 import android.app.Application
 import com.ito.feed.utils.api.FeedsApi
+import com.ito.feed.utils.api.GitApi
 import com.ito.feed.utils.datastore.DataStore
 import com.ito.feed.utils.datastore.DataStoreImpl
 import com.ito.feed.utils.interactor.FeedsInteractor
@@ -29,8 +30,8 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideFeedsRepository(api: FeedsApi, dataStore: DataStore) : FeedsRepository {
-        return FeedsRepositoryImpl(api, dataStore)
+    fun provideFeedsRepository(api: FeedsApi, gitApi: GitApi, dataStore: DataStore) : FeedsRepository {
+        return FeedsRepositoryImpl(api, gitApi, dataStore)
     }
 
     @Singleton

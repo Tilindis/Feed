@@ -3,7 +3,8 @@ package com.ito.feed.utils.repository
 import kotlinx.coroutines.flow.Flow
 
 interface FeedsRepository {
-    suspend fun requestFeed()
+    suspend fun requestFeeds()
+    suspend fun requestFeed(path: String)
 
     fun getTimelineUrlValue(): Flow<String?>
     fun getUserUrlValue(): Flow<String?>

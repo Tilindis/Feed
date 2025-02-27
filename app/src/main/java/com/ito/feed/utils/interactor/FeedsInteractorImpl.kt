@@ -10,10 +10,15 @@ import javax.inject.Inject
 class FeedsInteractorImpl @Inject constructor(
     private val feedsRepository: FeedsRepository,
 ) : FeedsInteractor {
-    private var counter = 0
+    private var cardCounter = 0
+    private var fieldCounter = 0
 
-    override suspend fun requestFeed() {
-        feedsRepository.requestFeed()
+    override suspend fun requestFeeds() {
+        feedsRepository.requestFeeds()
+    }
+
+    override suspend fun requestFeed(path: String) {
+        feedsRepository.requestFeed(path)
     }
 
     override fun getFeeds(): Flow<List<FeedsDomain>> {
@@ -33,16 +38,19 @@ class FeedsInteractorImpl @Inject constructor(
                     categoryUrl?.let { getFeed(it) },
                 )
             }
-        }.also { counter = 0 }
+        }.also {
+            cardCounter = 0
+            fieldCounter = 0
+        }
     }
 
     private fun getFeed(url: String): FeedsDomain {
         val path = getPath(url)
         val pathParameters = getParametersFromPath(path)
         val parameters = if (pathParameters.isNotEmpty()) {
-            getParameters(pathParameters)
+            getParameters(pathParameters, cardCounter)
         } else emptyList()
-        return FeedsDomain(url, path, parameters)
+        return FeedsDomain(url, path, cardCounter, parameters).also { cardCounter += 1 }
     }
 
     private fun getPath(url: String): String {
@@ -56,11 +64,11 @@ class FeedsInteractorImpl @Inject constructor(
         return matches.map { it.groupValues[1] }.toList()
     }
 
-    private fun getParameters(pathParameters: List<String>): List<Parameter> {
+    private fun getParameters(pathParameters: List<String>, cardId: Int): List<Parameter> {
         val parameters = mutableListOf<Parameter>()
         pathParameters.forEach {
-            parameters.add(Parameter(it, counter))
-            counter += 1
+            parameters.add(Parameter(it, cardId, fieldCounter))
+            fieldCounter += 1
         }
 
         return parameters
