@@ -16,6 +16,7 @@ fun FeedsScreen(
         parameterInputs = state.parameterInputs,
         onFieldSelected = viewModel::setSelectedInputField,
         onFieldValueChange = viewModel::setSelectedInputValue,
+        onGetClicked = viewModel::requestFeed
     )
 }
 
